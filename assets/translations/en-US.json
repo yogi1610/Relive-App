@@ -1,0 +1,14 @@
+{
+  "sign_in": "Sign In",
+  "email_address": "Email address*",
+  "enter_email": "Enter your email address",
+  "password": "Password*",
+  "enter_password": "Enter your password",
+  "remember_me": "Remember me",
+  "forget_password": "Forget Password",
+  "choose_your_clinic": "Choose Your Clinic",
+  "select_clinic": "Select a clinic to continue",
+  "search_clinic": "Search Clinic",
+  "privacy_policy": "Privacy Policy",
+  "terms_and_conditions": "Terms and Conditions"
+}
