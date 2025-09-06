@@ -98,13 +98,6 @@
             android:value="high_importance_channel" />
 
 
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/notification_icon" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/notification_icon"
-            tools:replace="android:resource" />
 
         <meta-data
             android:name="google_analytics_adid_collection_enabled"

@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:relive_app/screens/home_screen.dart';
 
 class DashboardProvider extends ChangeNotifier {
   int _selectedPage = 0;
+
   int get selectedPage => _selectedPage;
 
   List<NavigationBarModel> navigationItems = [
     NavigationBarModel(
       icon: 'assets/images/svg/ic_bnb_home.svg',
       label: 'home',
-      page: Container(),
+      page: HomeScreen(),
     ),
     NavigationBarModel(
       icon: 'assets/images/svg/ic_bnb_meetings.svg',
@@ -27,9 +29,9 @@ class DashboardProvider extends ChangeNotifier {
     ),
   ];
 
-  void onNavBarItemTap(int index) {
+  void onNavBarItemTap(int index, [bool notify = true]) {
     _selectedPage = index;
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 }
 

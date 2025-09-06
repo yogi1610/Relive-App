@@ -9,6 +9,8 @@ class AppScaffold extends StatefulWidget {
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final bool? resizeToAvoidBottomInset;
+  final bool? topSafeArea;
+  final bool? bottomSafeArea;
   final Color? backgroundColor;
   final String? appBarTitle;
 
@@ -18,6 +20,8 @@ class AppScaffold extends StatefulWidget {
     this.showAppBar,
     this.appBar,
     this.bottomNavigationBar,
+    this.topSafeArea,
+    this.bottomSafeArea,
     this.floatingActionButton,
     this.backgroundColor,
     this.floatingActionButtonLocation,
@@ -46,8 +50,8 @@ class _AppScaffoldState extends State<AppScaffold> {
       backgroundColor:
           widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
       body: SafeArea(
-        top: true,
-        bottom: true,
+        top: widget.topSafeArea ?? true,
+        bottom: widget.bottomSafeArea ?? true,
         child: Column(
           children: [
             Visibility(

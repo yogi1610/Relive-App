@@ -16,7 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     // Set initial selected page
     final provider = Provider.of<DashboardProvider>(context, listen: false);
-    provider.onNavBarItemTap(widget.selectedPage);
+    provider.onNavBarItemTap(widget.selectedPage, false);
   }
 
   @override
@@ -24,11 +24,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Consumer<DashboardProvider>(
       builder: (context, provider, _) {
         final currentIndex = provider.selectedPage;
-        return Scaffold(
+        return AppScaffold(
+          showAppBar: !(currentIndex == 3),// hide app bad on settings profile tab
           body: provider.navigationItems[currentIndex].page,
           bottomNavigationBar: Container(
             height: 70,
-            padding: EdgeInsets.symmetric(horizontal: 27.w,),
+            padding: EdgeInsets.symmetric(horizontal: 27.w),
             margin: EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,

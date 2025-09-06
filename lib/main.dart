@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:relive_app/screens/blogs_screen.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 import 'dart:ui' as ui;
 
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
             );
           },
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          home: BlogsScreen(),
         );
       },
     );

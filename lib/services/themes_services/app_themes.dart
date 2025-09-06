@@ -24,6 +24,8 @@ class ThemeProvider extends ChangeNotifier {
 
       /// background color
       onSurface: AppColors.colorBlack,
+      secondaryFixed: Color(0xFFF9FAFB),
+
       /// text/labels color
       onSecondaryFixedVariant: Color(0xFF555555),
       onSurfaceVariant: AppColors.hintColor,
@@ -34,6 +36,9 @@ class ThemeProvider extends ChangeNotifier {
       onSecondaryContainer: primaryColor,
       tertiaryContainer: Color(0xFFCBEBE7),
       outline: Color(0xFFBEBEBE),
+      // for text-field borders
+      outlineVariant: Color(0xFFEEEEEE),
+      // for container borders
       shadow: Color(0xFFF9F9F9),
       error: Colors.red,
       onError: Colors.white,
