@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:relive_app/providers/add_food_log_provider.dart';
 import 'package:relive_app/providers/blogs_provider.dart';
+import 'package:relive_app/providers/medical_plan_provider.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class AppProviders {
@@ -17,6 +19,12 @@ class AppProviders {
         ),
         ChangeNotifierProvider(
           create: (_) => BlogsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AddFoodLogProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MedicalPlanProvider(),
         ),
       ],
       child: child,

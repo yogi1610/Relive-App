@@ -25,7 +25,7 @@ class _NumberPickerCustomState extends State<NumberPickerCustom> {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: theme.outlineVariant, width: 1),
         ),
-        height: 360.h,
+        height: MediaQuery.of(context).size.height * 0.42,
         child: Stack(
           alignment: Alignment.center,
           children: [

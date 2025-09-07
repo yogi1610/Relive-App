@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:relive_app/screens/home_wellness_plan_screen.dart';
 
 import '../utils/app_files_imports.dart';
 import 'add_pain_score_screen.dart';
@@ -201,12 +202,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: 'assets/images/svg/ic_bnb_meetings.svg',
                 color: AppColors.kGreen,
                 title: AppString.scheduleAppointment,
+                onTap: () {},
               ),
               _quickAccessWidget(
                 context: context,
                 icon: 'assets/images/svg/ic_meal_plan.svg',
                 color: AppColors.kPurple,
                 title: AppString.wellnessPlan,
+                onTap: () {
+                  CustomNavigator.pushNavigate(
+                    context: context,
+                    page: HomeWellnessPlanScreen(),
+                  );
+                },
               ),
             ],
           ),
@@ -218,12 +226,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: 'assets/images/svg/ic_consult_a_doctor.svg',
                 color: AppColors.kTeal,
                 title: AppString.consultDoctor,
+                onTap: (){}
               ),
               _quickAccessWidget(
                 context: context,
                 icon: 'assets/images/svg/ic_progress_report.svg',
                 color: AppColors.kOlive,
                 title: AppString.progressReport,
+                onTap: (){}
               ),
             ],
           ),
@@ -331,43 +341,47 @@ class _HomeScreenState extends State<HomeScreen> {
     required String icon,
     required Color color,
     required String title,
+    required VoidCallback onTap,
   }) {
     final theme = Theme.of(context).colorScheme;
     return Expanded(
-      child: Container(
-        height: 165.h,
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 5,
-          children: [
-            Container(
-              height: 60.h,
-              width: 60.h,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: theme.surface,
-                shape: BoxShape.circle,
+      child: AppGestures(
+        onTap: onTap,
+        child: Container(
+          height: 165.h,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 5,
+            children: [
+              Container(
+                height: 60.h,
+                width: 60.h,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: theme.surface,
+                  shape: BoxShape.circle,
+                ),
+                child: SvgPicture.asset(
+                  icon,
+                  height: 25.h,
+                  width: 25.w,
+                  colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                ),
               ),
-              child: SvgPicture.asset(
-                icon,
-                height: 25.h,
-                width: 25.w,
-                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                child: AppText(
+                  title,
+                  style: TextStyle(fontSize: 14).poppinsSemiBold,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-              child: AppText(
-                title,
-                style: TextStyle(fontSize: 14).poppinsSemiBold,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -106,6 +106,7 @@ extension InputDec on InputDecoration {
   }) => InputDecoration(
     hintText: hintText.tr(),
     alignLabelWithHint: true,
+    prefixIcon: prefixIcon ?? SizedBox.shrink(),
     hintStyle: TextStyle(
       fontSize: 14,
       color: Theme.of(context).colorScheme.onSecondaryFixed,
