@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:relive_app/screens/appointment_screen.dart';
 import 'package:relive_app/screens/home_screen.dart';
 
 class DashboardProvider extends ChangeNotifier {
@@ -15,7 +16,7 @@ class DashboardProvider extends ChangeNotifier {
     NavigationBarModel(
       icon: 'assets/images/svg/ic_bnb_meetings.svg',
       label: 'meeting',
-      page: Container(),
+      page: AppointmentScreen(),
     ),
     NavigationBarModel(
       icon: 'assets/images/svg/ic_bnb_progress_report.svg',

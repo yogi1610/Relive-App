@@ -13,6 +13,7 @@ class AppScaffold extends StatefulWidget {
   final bool? bottomSafeArea;
   final Color? backgroundColor;
   final String? appBarTitle;
+  final bool? hideBackButton;
 
   const AppScaffold({
     super.key,
@@ -27,6 +28,7 @@ class AppScaffold extends StatefulWidget {
     this.floatingActionButtonLocation,
     this.appBarTitle,
     this.resizeToAvoidBottomInset = false,
+    this.hideBackButton = false,
   });
 
   @override
@@ -37,7 +39,6 @@ class _AppScaffoldState extends State<AppScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset ?? false,
       appBar: (widget.showAppBar ?? true)
           ? (widget.appBar ?? const AppBarHeader())
@@ -56,7 +57,10 @@ class _AppScaffoldState extends State<AppScaffold> {
           children: [
             Visibility(
               visible: widget.appBarTitle != null,
-              child: AppBarContent(title: widget.appBarTitle ?? ''),
+              child: AppBarContent(
+                title: widget.appBarTitle ?? '',
+                hideBackButton: widget.hideBackButton,
+              ),
             ),
             Expanded(child: widget.body),
           ],

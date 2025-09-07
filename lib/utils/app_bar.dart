@@ -56,6 +56,7 @@ class AppBarContent extends StatelessWidget {
   final Widget? backIcon;
   final VoidCallback? onBackTap;
   final bool visible;
+  final bool? hideBackButton;
 
   const AppBarContent({
     super.key,
@@ -64,6 +65,7 @@ class AppBarContent extends StatelessWidget {
     this.backIcon,
     this.onBackTap,
     this.visible = true,
+    this.hideBackButton = false,
   });
 
   @override
@@ -85,15 +87,18 @@ class AppBarContent extends StatelessWidget {
             ),
           ),
 
-          AppGestures(
-            onTap: onBackTap ?? () => Navigator.pop(context),
-            child:
-                backIcon ??
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 25,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+          Visibility(
+            visible: !(hideBackButton ?? false),
+            child: AppGestures(
+              onTap: onBackTap ?? () => Navigator.pop(context),
+              child:
+                  backIcon ??
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 25,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
           ), // space to balance layout
         ],
       ),

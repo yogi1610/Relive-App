@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:relive_app/screens/appointment_screen.dart';
+import 'package:relive_app/screens/consultation_chat_list_screen.dart';
+import 'package:relive_app/screens/dashboard_screen.dart';
 import 'package:relive_app/screens/home_wellness_plan_screen.dart';
+import 'package:relive_app/utils/widget_week_date_picker.dart';
 
 import '../utils/app_files_imports.dart';
 import 'add_pain_score_screen.dart';
@@ -80,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(fontSize: 18).poppinsSemiBold,
                   ),
                 ),
+                WeeklyDatePicker(),
                 _todayPlanWidget(
                   context: context,
                   icon: 'assets/images/svg/ic_injection.svg',
@@ -202,7 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: 'assets/images/svg/ic_bnb_meetings.svg',
                 color: AppColors.kGreen,
                 title: AppString.scheduleAppointment,
-                onTap: () {},
+                onTap: () {
+                  CustomNavigator.pushNavigateWithZeroTransition(
+                    context: context,
+                    page: DashboardScreen(selectedPage: 1),
+                  );
+                },
               ),
               _quickAccessWidget(
                 context: context,
@@ -226,14 +236,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: 'assets/images/svg/ic_consult_a_doctor.svg',
                 color: AppColors.kTeal,
                 title: AppString.consultDoctor,
-                onTap: (){}
+                onTap: () {
+                  CustomNavigator.pushNavigate(
+                    context: context,
+                    page: ConsultationChatListScreen(),
+                  );
+                },
               ),
               _quickAccessWidget(
                 context: context,
                 icon: 'assets/images/svg/ic_progress_report.svg',
                 color: AppColors.kOlive,
                 title: AppString.progressReport,
-                onTap: (){}
+                onTap: () {
+                  CustomNavigator.pushNavigateWithZeroTransition(
+                    context: context,
+                    page: DashboardScreen(selectedPage: 2),
+                  );
+                },
               ),
             ],
           ),
