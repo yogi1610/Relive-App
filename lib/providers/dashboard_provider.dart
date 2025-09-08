@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:relive_app/screens/appointment_screen.dart';
 import 'package:relive_app/screens/home_screen.dart';
 
 class DashboardProvider extends ChangeNotifier {
   int _selectedPage = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
   int get selectedPage => _selectedPage;
 
@@ -31,9 +33,16 @@ class DashboardProvider extends ChangeNotifier {
   ];
 
   void onNavBarItemTap(int index, [bool notify = true]) {
+    if (index == 3) {
+      // just open drawer without changing selected page
+      _scaffoldKey.currentState!.openEndDrawer();
+      return; // stop here
+    }
+
     _selectedPage = index;
     if (notify) notifyListeners();
   }
+
 }
 
 class NavigationBarModel {

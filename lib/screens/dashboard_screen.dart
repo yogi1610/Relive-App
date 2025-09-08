@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:relive_app/screens/drawer_screen.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -11,6 +12,9 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+
+
+
   @override
   void initState() {
     super.initState();
@@ -25,8 +29,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       builder: (context, provider, _) {
         final currentIndex = provider.selectedPage;
         return AppScaffold(
-          showAppBar: !(currentIndex == 3),// hide app bad on settings profile tab
+          scaffoldKey: provider.scaffoldKey,
+          showAppBar: !(currentIndex == 3),
           body: provider.navigationItems[currentIndex].page,
+          drawer: DrawerScreen(),
           bottomNavigationBar: Container(
             height: 70,
             padding: EdgeInsets.symmetric(horizontal: 27.w),
