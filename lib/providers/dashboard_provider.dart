@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:relive_app/screens/appointment_screen.dart';
 import 'package:relive_app/screens/home_screen.dart';
+import 'package:relive_app/screens/progress_tracking_screen.dart';
 
 class DashboardProvider extends ChangeNotifier {
   int _selectedPage = 0;
@@ -23,7 +24,7 @@ class DashboardProvider extends ChangeNotifier {
     NavigationBarModel(
       icon: 'assets/images/svg/ic_bnb_progress_report.svg',
       label: 'progress tracking',
-      page: Container(),
+      page: ProgressTrackingScreen(),
     ),
     NavigationBarModel(
       icon: 'assets/images/svg/ic_bnb_settings_profile.svg',
