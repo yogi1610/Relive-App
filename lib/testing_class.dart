@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
@@ -15,15 +16,6 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
 
 
-  final List<ChartData1> chartData1 = [
-    ChartData1("Sun", 4, Colors.green),
-    ChartData1("Mon", 8, Colors.red),
-    ChartData1("Tue", 6, Colors.blue),
-    ChartData1("Wed", 9, Colors.red),
-    ChartData1("Thu", 3, Colors.green),
-    ChartData1("Fri", 7, Colors.blue),
-    ChartData1("Sat", 6, Colors.blue),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +96,4 @@ class _TestState extends State<Test> {
 }
 
 
-
-class ChartData1 {
-  final String day;
-  final double value;
-  final Color color;
-
-  ChartData1(this.day, this.value, this.color);
-}
+*/
