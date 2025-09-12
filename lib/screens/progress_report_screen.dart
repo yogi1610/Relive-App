@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/providers/progress_tracking_provider.dart';
-import 'package:relive_app/screens/progress_report_daily_view.dart';
-import 'package:relive_app/screens/progress_report_weekly_view.dart';
+
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class ProgressReportScreen extends StatefulWidget {
@@ -128,7 +126,7 @@ class _ProgressReportScreenState extends State<ProgressReportScreen> {
                     ? ProgressReportDailyView()
                     : provider.selectedTabIndex == 1
                     ? ProgressReportWeeklyView()
-                    : SizedBox(),
+                    : ProgressReportMonthly(),
               ],
             );
           },

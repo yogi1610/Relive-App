@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/providers/add_food_log_provider.dart';
-import 'package:relive_app/providers/add_new_appointment_provider.dart';
-import 'package:relive_app/providers/blogs_provider.dart';
-import 'package:relive_app/providers/edit_appointment_provider.dart';
-import 'package:relive_app/providers/medical_plan_provider.dart';
-import 'package:relive_app/providers/progress_tracking_provider.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class AppProviders {

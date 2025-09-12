@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/providers/blogs_provider.dart';
 
 import '../utils/app_files_imports.dart';
 

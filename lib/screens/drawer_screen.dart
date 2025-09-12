@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/models/model_drawer.dart';
-import 'package:relive_app/screens/drawer_change_language_screen.dart';
-import 'package:relive_app/screens/drawer_delete_user_popup.dart';
-import 'package:relive_app/screens/drawer_logout_user_popup.dart';
+
 import 'package:relive_app/utils/app_files_imports.dart';
-import 'package:relive_app/utils/app_popups.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -253,7 +249,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       Navigator.pop(context);
       ShowPopUp.dialogueBox(context: context, body: DeleteUserAccountPopup());
     } else {
-      CustomNavigator.pushNavigate(context: context, page: page!);
+      // CustomNavigator.pushNavigate(context: context, page: page!);
     }
   }
 }

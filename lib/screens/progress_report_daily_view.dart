@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/flutter_percent_indicator.dart';
-import 'package:relive_app/screens/progress_report_screen.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+
 import 'dart:ui' as ui;
 import '../utils/app_files_imports.dart';
 

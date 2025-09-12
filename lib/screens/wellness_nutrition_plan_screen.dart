@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/screens/wellness_nutrition_add_food_log_screen.dart';
-import 'package:relive_app/screens/wellness_nutrition_view_breakdown_screen.dart';
+
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class WellnessNutritionPlanScreen extends StatefulWidget {

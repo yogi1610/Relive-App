@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/screens/appointment_screen.dart';
-import 'package:relive_app/screens/consultation_chat_list_screen.dart';
-import 'package:relive_app/screens/dashboard_screen.dart';
-import 'package:relive_app/screens/home_wellness_plan_screen.dart';
-import 'package:relive_app/utils/widget_week_date_picker.dart';
 
 import '../utils/app_files_imports.dart';
-import 'add_pain_score_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -208,10 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppColors.kGreen,
                 title: AppString.scheduleAppointment,
                 onTap: () {
-                  CustomNavigator.pushNavigateWithZeroTransition(
-                    context: context,
-                    page: DashboardScreen(selectedPage: 1),
-                  );
+                  context.read<DashboardProvider>().onNavBarItemTap(1);
                 },
               ),
               _quickAccessWidget(
@@ -249,10 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppColors.kOlive,
                 title: AppString.progressReport,
                 onTap: () {
-                  CustomNavigator.pushNavigateWithZeroTransition(
-                    context: context,
-                    page: DashboardScreen(selectedPage: 2),
-                  );
+                  context.read<DashboardProvider>().onNavBarItemTap(2);
                 },
               ),
             ],

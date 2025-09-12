@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/screens/add_new_appointment_screen.dart';
-import 'package:relive_app/screens/appointment_details_screen.dart';
+
 import 'package:relive_app/utils/app_files_imports.dart';
-import 'package:relive_app/utils/widget_week_date_picker.dart';
+
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({super.key});

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/screens/appointment_edit_screen.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
-import 'package:relive_app/utils/app_popups.dart';
 
 class AppointmentDetailsScreen extends StatefulWidget {
   const AppointmentDetailsScreen({super.key});

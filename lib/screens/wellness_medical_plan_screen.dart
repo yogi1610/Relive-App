@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/providers/medical_plan_provider.dart';
-import 'package:relive_app/screens/wellness_medical_plan_detail_screen.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class WellnessMedicalPlanScreen extends StatefulWidget {

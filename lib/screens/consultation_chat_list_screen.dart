@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/screens/consultation_add_new_note_screen.dart';
-import 'package:relive_app/screens/consultation_chat_screen.dart';
+
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class ConsultationChatListScreen extends StatefulWidget {

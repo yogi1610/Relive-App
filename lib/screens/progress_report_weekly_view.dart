@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/flutter_percent_indicator.dart';
-import 'package:relive_app/screens/progress_report_screen.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:ui' as ui;
 import '../utils/app_files_imports.dart';
 
@@ -317,12 +314,10 @@ class _ProgressReportWeeklyViewState extends State<ProgressReportWeeklyView> {
               Row(
                 spacing: 15,
                 children: [
-                  Flexible(
-                    child: Expanded(
-                      child: mildDiscomfortInfo(
-                        title: 'Completed ( > 60%)',
-                        color: Color(0xFF4ADE80),
-                      ),
+                  Expanded(
+                    child: mildDiscomfortInfo(
+                      title: 'Completed ( > 60%)',
+                      color: Color(0xFF4ADE80),
                     ),
                   ),
                   Flexible(
