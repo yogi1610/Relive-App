@@ -76,7 +76,7 @@ class AppButton extends StatelessWidget {
                     style:
                         textStyle ??
                         TextStyle(
-                          fontSize: 22,
+                          fontSize: textSize ?? 22,
                           color: AppColors.colorWhite,
                         ).poppinsMedium,
                   ),

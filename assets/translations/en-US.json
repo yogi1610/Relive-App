@@ -1,6 +1,6 @@
 {
   "sign_in": "Sign In",
-  "email_address": "Email address*",
+  "email_address": "Email address",
   "enter_email": "Enter your email address",
   "password": "Password*",
   "enter_password": "Enter your password",
@@ -136,5 +136,10 @@
   "what_do_you_need": "What Exactly Do You Need",
   "submit_request": "Submit Request",
   "delete_user_confirm": "Are You Sure You Want To Delete This User?",
-  "logout_confirm": "Are You Sure You Want To Logout?"
+  "logout_confirm": "Are You Sure You Want To Logout?",
+  "change_password": "Change Password",
+  "font_default": "Default",
+  "font_smaller": "Smaller",
+  "font_medium": "Medium",
+  "font_larger": "Larger"
 }

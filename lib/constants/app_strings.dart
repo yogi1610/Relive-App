@@ -137,4 +137,9 @@ class AppString {
   static const submitRequest = 'submit_request';
   static const deleteUserConfirm = 'delete_user_confirm';
   static const logoutConfirm = 'logout_confirm';
+  static const changePassword = 'change_password';
+  static const fontDefault = 'font_default';
+  static const fontSmaller = 'font_smaller';
+  static const fontMedium = 'font_medium';
+  static const fontLarger = 'font_larger';
 }

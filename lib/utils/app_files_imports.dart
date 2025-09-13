@@ -13,7 +13,6 @@ export 'package:relive_app/providers/app_all_provider.dart';
 export 'package:relive_app/screens/splash_screen.dart';
 export 'package:relive_app/services/localization_services/localization.dart';
 export 'package:flutter_svg/flutter_svg.dart';
-export 'package:relive_app/utils/app_files_imports.dart';
 export 'package:relive_app/utils/app_network_image.dart';
 export 'package:relive_app/constants/app_assets.dart';
 export 'package:cached_network_image/cached_network_image.dart';
@@ -70,5 +69,12 @@ export 'package:relive_app/screens/wellness_nutrition_add_food_log_screen.dart';
 export 'package:relive_app/screens/wellness_nutrition_view_breakdown_screen.dart';
 export 'package:relive_app/providers/medical_plan_provider.dart';
 export 'package:relive_app/screens/wellness_medical_plan_detail_screen.dart';
+export 'package:relive_app/screens/profile_change_password_screen.dart';
+export 'package:relive_app/screens/drawer_notification_screen.dart';
+export 'package:relive_app/screens/drawer_change_font_size_screen.dart';
+export 'package:relive_app/screens/drawer_help_and_support_screen.dart';
+export 'package:relive_app/screens/drawer_privacy_policy_screen.dart';
+export 'package:relive_app/screens/drawer_report_a_problem_screen.dart';
+export 'package:relive_app/screens/profile_details_screen.dart';
 
 

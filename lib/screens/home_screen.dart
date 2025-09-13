@@ -21,8 +21,16 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             spacing: 15,
             children: [
-              AppImage(
-                imagePath: 'assets/images/svg/ic_notification_inactive.svg',
+              AppGestures(
+                onTap: () {
+                  CustomNavigator.pushNavigate(
+                    context: context,
+                    page: DrawerNotificationScreen(),
+                  );
+                },
+                child: AppImage(
+                  imagePath: 'assets/images/svg/ic_notification_inactive.svg',
+                ),
               ),
               Expanded(
                 child: Column(

@@ -65,44 +65,56 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 child: Column(
                   spacing: 15,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      child: Row(
-                        spacing: 10,
-                        children: [
-                          ClipOval(
-                            child: AppImage(
-                              imagePath:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRch6CDHA9hqbe3GbIo6O0T-EWeIL7JJ8_cpQ&s',
-                              height: 70.h,
-                              width: 70.w,
-                            ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: Column(
-                                spacing: 7,
-                                children: [
-                                  Text(
-                                    'Sarah Williams',
-                                    style: TextStyle(fontSize: 18).poppinsBold,
-                                  ),
-                                  Text(
-                                    'user@gmail.com',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: theme.onSecondaryFixedVariant,
-                                    ).poppinsRegular,
-                                  ),
-                                ],
+                    AppGestures(
+                      onTap: () {
+                        Navigator.pop(context);
+
+                        CustomNavigator.pushNavigate(
+                          context: context,
+                          page: ProfileDetailsScreen(),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
+                        child: Row(
+                          spacing: 10,
+                          children: [
+                            ClipOval(
+                              child: AppImage(
+                                imagePath:
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRch6CDHA9hqbe3GbIo6O0T-EWeIL7JJ8_cpQ&s',
+                                height: 70.h,
+                                width: 70.w,
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: Column(
+                                  spacing: 7,
+                                  children: [
+                                    Text(
+                                      'Sarah Williams',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ).poppinsBold,
+                                    ),
+                                    Text(
+                                      'user@gmail.com',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: theme.onSecondaryFixedVariant,
+                                      ).poppinsRegular,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
 
@@ -229,27 +241,23 @@ class _DrawerScreenState extends State<DrawerScreen> {
   void onItemIap({required BuildContext context, required int index}) {
     Widget? page;
     if (index == 0) {
-      // page = DrawerNotificationSettingsScreen(
-      //   onText: provider.notifOnText,
-      //   offText: provider.notifOffText,
-      //   notificationStatus: provider.notifStatus,
-      // );
+      page = DrawerNotificationScreen();
     } else if (index == 1) {
-      // page = TermsOfUseScreen();
+      page = DrawerPrivacyPolicyScreen();
     } else if (index == 2) {
       page = DrawerChangeLanguageScreen();
     } else if (index == 3) {
-      // page = DynamicFontSizeScreen();
+      page = DrawerChangeFontSizeScreen();
     } else if (index == 4) {
-      // page = ReportAProblemScreen();
+      page = DrawerReportAProblemScreen();
     } else if (index == 5) {
-      // page = HelpAndSupportScreen();
+      page = DrawerHelpAndSupportScreen();
     }
     if (index == 6) {
       Navigator.pop(context);
       ShowPopUp.dialogueBox(context: context, body: DeleteUserAccountPopup());
     } else {
-      // CustomNavigator.pushNavigate(context: context, page: page!);
+      CustomNavigator.pushNavigate(context: context, page: page!);
     }
   }
 }
