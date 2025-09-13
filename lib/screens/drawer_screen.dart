@@ -96,13 +96,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 child: Column(
                                   spacing: 7,
                                   children: [
-                                    Text(
+                                    AppText(
                                       'Sarah Williams',
                                       style: TextStyle(
                                         fontSize: 18,
                                       ).poppinsBold,
                                     ),
-                                    Text(
+                                    AppText(
                                       'user@gmail.com',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -153,8 +153,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 Expanded(
                                   child: Align(
                                     alignment: Alignment.centerRight,
-                                    child: Text(
+                                    child: AppText(
                                       item.title.tr(),
+                                      textAlign: TextAlign.right,
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: selected

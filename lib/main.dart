@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
           themeMode: themeProvider.themeMode,
           theme: themeProvider.lightTheme,
           builder: (context, child) {
-            // Fixed LTR direction
             return Directionality(
               textDirection: ui.TextDirection.ltr,
               child: ScreenUtilInit(
@@ -52,19 +51,24 @@ class MyApp extends StatelessWidget {
                 minTextAdapt: true,
                 splitScreenMode: true,
                 builder: (context, _) {
-                  return ScrollConfiguration(
-                    behavior: const ScrollBehaviorModified(),
-                    child: MediaQuery(
-                      data: MediaQuery.of(
-                        context,
-                      ).copyWith(textScaler: const TextScaler.linear(1.0)),
-                      child: child!,
-                    ),
+                  return Consumer<FontSizeProvider>(
+                    builder: (context, fontProvider, _) {
+                      return ScrollConfiguration(
+                        behavior: const ScrollBehaviorModified(),
+                        child: MediaQuery(
+                          data: MediaQuery.of(context).copyWith(
+                            textScaler: TextScaler.linear(fontProvider.scale),
+                          ),
+                          child: child!,
+                        ),
+                      );
+                    },
                   );
                 },
               ),
             );
           },
+
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         );

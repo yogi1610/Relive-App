@@ -76,5 +76,6 @@ export 'package:relive_app/screens/drawer_help_and_support_screen.dart';
 export 'package:relive_app/screens/drawer_privacy_policy_screen.dart';
 export 'package:relive_app/screens/drawer_report_a_problem_screen.dart';
 export 'package:relive_app/screens/profile_details_screen.dart';
+export 'package:relive_app/providers/font_size_provider.dart';
 
 

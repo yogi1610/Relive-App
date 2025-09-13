@@ -32,6 +32,9 @@ class AppProviders {
         ChangeNotifierProvider(
           create: (_) => ProgressReportProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => FontSizeProvider(),
+        ),
       ],
       child: child,
     );
