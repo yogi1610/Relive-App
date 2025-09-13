@@ -15,6 +15,7 @@ class ThemeProvider extends ChangeNotifier {
   /// -------- Light Theme --------
   ThemeData get lightTheme => ThemeData(
     brightness: Brightness.light,
+    scaffoldBackgroundColor: AppColors.colorWhite,
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary: primaryColor,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 import 'dart:ui' as ui;
 
@@ -44,6 +45,22 @@ class MyApp extends StatelessWidget {
           themeMode: themeProvider.themeMode,
           theme: themeProvider.lightTheme,
           builder: (context, child) {
+            final theme = Theme.of(context);
+
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                systemNavigationBarColor: theme.scaffoldBackgroundColor,
+                systemNavigationBarIconBrightness:
+                    theme.brightness == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark,
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: theme.brightness == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark,
+              ),
+            );
+
             return Directionality(
               textDirection: ui.TextDirection.ltr,
               child: ScreenUtilInit(

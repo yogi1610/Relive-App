@@ -39,7 +39,7 @@ class AppBarHeader extends StatelessWidget implements PreferredSizeWidget {
             height: 40,
             width: 150,
           ),
-      backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
+      backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       centerTitle: centerTitle,
       actions: [SizedBox.shrink()],
       bottom: bottom,

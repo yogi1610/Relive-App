@@ -55,7 +55,7 @@ class _AppScaffoldState extends State<AppScaffold> {
           widget.floatingActionButtonLocation ??
           FloatingActionButtonLocation.centerDocked,
       backgroundColor:
-          widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+          widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         top: widget.topSafeArea ?? true,
         bottom: widget.bottomSafeArea ?? true,
