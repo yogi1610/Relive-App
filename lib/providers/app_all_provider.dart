@@ -35,6 +35,9 @@ class AppProviders {
         ChangeNotifierProvider(
           create: (_) => FontSizeProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => AppointmentProvider(),
+        ),
       ],
       child: child,
     );

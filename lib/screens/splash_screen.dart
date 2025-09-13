@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalization.setLanguage(AppLanguage.hebrew, context);
+    AppLocalization.setLanguage(AppLanguage.english, context);
     return AppScaffold(
       showAppBar: false,
       body: Center(
