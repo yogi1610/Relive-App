@@ -80,4 +80,8 @@ export 'package:relive_app/providers/font_size_provider.dart';
 export 'package:relive_app/providers/appointments_provider.dart';
 export 'package:relive_app/utils/app_date_formats.dart';
 export 'package:relive_app/utils/app_datepicker.dart';
+export 'package:relive_app/screens/nutrition_log_water_popup.dart';
+export 'package:relive_app/screens/nutrition_log_weight_popup.dart';
+export 'package:relive_app/screens/fitness_log_steps_popup.dart';
+export 'package:relive_app/screens/fitness_log_weight_popup.dart';
 

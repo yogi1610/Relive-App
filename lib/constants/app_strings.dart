@@ -142,4 +142,17 @@ class AppString {
   static const fontSmaller = 'font_smaller';
   static const fontMedium = 'font_medium';
   static const fontLarger = 'font_larger';
+  static const totalGoal = 'total_goal';
+  static const planName = 'plan_name';
+  static const waterGoal = 'water_goal';
+  static const todaysSummary = 'todays_summary';
+  static const weightProgress = 'weight_progress';
+  static const waterConsumed = 'water_consumed';
+  static const waterIntake = 'water_intake';
+  static const weightInsight = 'weight_insight';
+  static const logWater = 'log_water';
+  static const logWeight = 'log_weight';
+  static const logWaterIntake = 'log_water_intake';
+  static const stepsOverview = 'steps_overview';
+  static const logSteps = 'log_steps';
 }

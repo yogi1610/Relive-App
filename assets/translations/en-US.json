@@ -129,7 +129,7 @@
   "confirm_password": "Confirm Password",
   "describe_issue": "Describe the Issue*",
   "upload_screenshot": "Upload a screenshot/video – not mandatory",
-  "type_here": "Type here...",
+  "type_here": "Type here",
   "submit_report": "Submit Report",
   "choose_file": "Choose File",
   "help_and_support": "Help and Support",
@@ -141,5 +141,18 @@
   "font_default": "Default",
   "font_smaller": "Smaller",
   "font_medium": "Medium",
-  "font_larger": "Larger"
+  "font_larger": "Larger",
+  "total_goal": "Total Goal",
+  "plan_name": "Plan Name",
+  "water_goal": "Water Goal",
+  "todays_summary": "Today’s Summary",
+  "weight_progress": "Weight Progress",
+  "water_consumed": "Water Consumed",
+  "water_intake": "Water Intake",
+  "weight_insight": "Weight Insight",
+  "log_water": "Log Water",
+  "log_weight": "Log Weight",
+  "log_water_intake": "Log Water Intake",
+  "steps_overview": "Steps Overview",
+  "log_steps": "Log Steps"
 }
