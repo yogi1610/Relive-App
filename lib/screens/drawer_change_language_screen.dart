@@ -29,17 +29,6 @@ class _DrawerChangeLanguageScreenState
     });
   }
 
-  Future<void> setLanguage(String selectedLanguageName) async {
-    final index = AppLocalization.languageNames.indexOf(selectedLanguageName);
-    if (index >= 0) {
-      await AppLocalization.setLanguage(AppLanguage.values[index], context);
-      setState(() {
-        currentLanguageIndex = index;
-        currentLanguageCode =
-            AppLocalization.languageCodes[AppLanguage.values[index]]!;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

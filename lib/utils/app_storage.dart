@@ -1,6 +1,6 @@
 import 'package:relive_app/utils/app_files_imports.dart';
 
-class AppStorage {
+class AppStorageManager {
   static void saveData(String key, dynamic value) async {
     final prefs = await SharedPreferences.getInstance();
     if (value is int) {

@@ -155,4 +155,14 @@ class AppString {
   static const logWaterIntake = 'log_water_intake';
   static const stepsOverview = 'steps_overview';
   static const logSteps = 'log_steps';
+  static const enterAPhoneNumberOrEmail = 'enter_email_phone';
+  static const aValidEmailAddressMustBeEntered = 'valid_email_address_must';
+  static const enterA10DigitPhoneNumber = 'enter_10_digit_phone';
+  static const aValidPhoneNumberEmailAddressMustBeEntered = 'valid_phone_email_address_must';
+  static const verifyOtp = 'verify_otp';
+  static const enter6DigitOtp = 'enter_6_digit_otp';
+  static const enterOtp = 'enter_otp';
+  static const pleaseEnterOtp = 'please_enter_otp';
+  static const otpMustBe6Digits = 'otp_must_be_6_digits';
+  static const invalidOtpFormat = 'invalid_otp_format';
 }

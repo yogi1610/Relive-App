@@ -25,13 +25,13 @@ class FontSizeProvider extends ChangeNotifier {
   }
 
   Future<void> _loadFontSize() async {
-    _selectedIndex = await AppStorage.readData(_key) ?? 0;
+    _selectedIndex = await AppStorageManager.readData(_key) ?? 0;
     notifyListeners();
   }
 
   Future<void> onSelectFontSize(int index) async {
     _selectedIndex = index;
-    AppStorage.saveData(_key, _selectedIndex);
+    AppStorageManager.saveData(_key, _selectedIndex);
     notifyListeners();
   }
 }

@@ -48,7 +48,7 @@ class ThemeProvider extends ChangeNotifier {
 
   /// -------- Preferences Load --------
   void _loadPreferences() async {
-    final themeIndex = await AppStorage.readData(AppKeys.themeMode) ?? 0;
+    final themeIndex = await AppStorageManager.readData(AppKeys.themeMode) ?? 0;
     _themeMode = ThemeMode.values[themeIndex];
     notifyListeners();
   }
@@ -56,7 +56,7 @@ class ThemeProvider extends ChangeNotifier {
   /// -------- Theme Switch --------
   void setThemeMode(ThemeMode mode) async {
     _themeMode = mode;
-    AppStorage.saveData('themeMode', mode.index);
+    AppStorageManager.saveData('themeMode', mode.index);
     notifyListeners();
   }
 }
