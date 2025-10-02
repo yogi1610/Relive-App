@@ -13,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<DashboardProvider>(context);
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: Column(
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   spacing: 5,
                   children: [
                     AppText(
-                      'Good Morning Sarah!',
+                      'Good Morning, ${provider.userName.split(' ').first}',
                       style: TextStyle(fontSize: 14).poppinsSemiBold,
                     ),
                     Row(
@@ -62,8 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               ClipOval(
                 child: AppImage(
-                  imagePath:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRch6CDHA9hqbe3GbIo6O0T-EWeIL7JJ8_cpQ&s',
+                  imagePath: provider.userImage,
+                  errorWidget: AppImage(
+                    imagePath: AppAssets.noProfileImage,
+                    height: 50,
+                    width: 50,
+                  ),
                   height: 50,
                   width: 50,
                 ),

@@ -46,6 +46,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<DashboardProvider>(context);
     return Drawer(
       elevation: 0,
       shadowColor: Colors.transparent,
@@ -80,32 +81,40 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           vertical: 10,
                         ),
                         child: Row(
-                          spacing: 10,
+                          spacing: 7,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             ClipOval(
                               child: AppImage(
-                                imagePath:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRch6CDHA9hqbe3GbIo6O0T-EWeIL7JJ8_cpQ&s',
-                                height: 70.h,
-                                width: 70.w,
+                                imagePath: provider.userImage,
+                                errorWidget: AppImage(
+                                  imagePath: AppAssets.noProfileImage,
+                                  height: 65.h,
+                                  width: 65.w,
+                                ),
+                                height: 65.h,
+                                width: 65.w,
                               ),
                             ),
                             Expanded(
                               child: Align(
                                 alignment: Alignment.topRight,
                                 child: Column(
-                                  spacing: 7,
+                                  spacing: 3,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     AppText(
-                                      'Sarah Williams',
+                                      provider.userName,
+                                      textAlign: TextAlign.end,
                                       style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 15,
                                       ).poppinsBold,
                                     ),
                                     AppText(
-                                      'user@gmail.com',
+                                      provider.userEmail,
+                                      textAlign: TextAlign.end,
                                       style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         color: theme.onSecondaryFixedVariant,
                                       ).poppinsRegular,
                                     ),
@@ -193,13 +202,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
               ),
             ),
+
             AppGestures(
               onTap: () {
-                Navigator.pop(context);
-
                 ShowPopUp.dialogueBox(
                   context: context,
                   body: LogoutUserAccountPopup(),
+                  callApi: (val) {
+                    if (val == true) {
+                      provider.logoutApi(context);
+                    }
+                  },
                 );
               },
               child: Container(
@@ -214,7 +227,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       child: Container(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          'Logout',
+                          AppString.logout.tr(),
                           style: TextStyle(fontSize: 15).poppinsRegular,
                         ),
                       ),

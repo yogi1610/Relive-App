@@ -1,19 +1,30 @@
 
 import 'package:flutter/material.dart';
-import 'package:relive_app/utils/app_files_imports.dart';
 
 class NumberPickerCustom extends StatefulWidget {
-  const NumberPickerCustom({super.key});
+  final int initialValue;
+  final Function(int) onValueChanged;
+
+  const NumberPickerCustom({
+    super.key,
+    this.initialValue = 7,
+    required this.onValueChanged,
+  });
 
   @override
   State<NumberPickerCustom> createState() => _NumberPickerCustomState();
 }
 
 class _NumberPickerCustomState extends State<NumberPickerCustom> {
-  int selectedValue = 7;
-  FixedExtentScrollController controller = FixedExtentScrollController(
-    initialItem: 6,
-  );
+  late int selectedValue;
+  late FixedExtentScrollController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedValue = widget.initialValue;
+    controller = FixedExtentScrollController(initialItem: selectedValue - 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +42,8 @@ class _NumberPickerCustomState extends State<NumberPickerCustom> {
           children: [
             // Glow/Highlight box behind center item
             Container(
-              height: 80.h,
-              width: 190.w,
+              height: 80,
+              width: 190,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: theme.primary.withValues(alpha: 0.15),
@@ -43,7 +54,6 @@ class _NumberPickerCustomState extends State<NumberPickerCustom> {
             ListWheelScrollView.useDelegate(
               controller: controller,
               itemExtent: 80,
-              // font 65 ke liye enough jagah
               perspective: 0.002,
               diameterRatio: 3.0,
               physics: const FixedExtentScrollPhysics(),
@@ -51,39 +61,37 @@ class _NumberPickerCustomState extends State<NumberPickerCustom> {
                 setState(() {
                   selectedValue = index + 1;
                 });
+                widget.onValueChanged(selectedValue); // Send value to parent
               },
               childDelegate: ListWheelChildBuilderDelegate(
                 builder: (context, index) {
                   if (index < 0 || index > 9) return null;
                   int number = index + 1;
-
                   int diff = (number - selectedValue).abs();
 
                   TextStyle style;
-
                   if (diff == 0) {
                     style = TextStyle(
                       fontSize: 58,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: theme.primary,
                       height: 1,
-                    ).poppinsBold;
+                    ).copyWith(fontWeight: FontWeight.bold);
                   } else if (diff == 1) {
                     style = TextStyle(
                       fontSize: 42,
                       height: 1,
                       color: Color(0xFFC0C0C0),
-                    ).poppinsBold;
+                    ).copyWith(fontWeight: FontWeight.bold);
                   } else {
                     style = TextStyle(
                       fontSize: 24,
                       height: 1,
                       color: Color(0xFFE5E5E5),
-                    ).poppinsBold;
+                    ).copyWith(fontWeight: FontWeight.bold);
                   }
 
                   return Align(
                     alignment: Alignment.center,
-                    // 👈 ensures perfect vertical center
                     child: Text(
                       number.toString().padLeft(2, '0'),
                       textAlign: TextAlign.center,

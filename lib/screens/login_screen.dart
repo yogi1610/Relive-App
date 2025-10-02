@@ -85,20 +85,6 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: AppText(
-                                  AppString.forgetPassword,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurfaceVariant,
-                                  ).poppinsRegular,
-                                ),
-                              ),
-                            ),
-                            Expanded(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [

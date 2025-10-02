@@ -108,10 +108,53 @@ class _LoginOtpVerifyScreenState extends State<LoginOtpVerifyScreen> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7),
+                    child: Consumer<LoginProvider>(
+                      builder: (context, pro, _) {
+                        return pro.isResendAvailable
+                            ? AppGestures(
+                                onTap: () => pro.resendOtp(context),
+                                child: Text(
+                                  "Resend OTP",
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary, // highlight
+                                    fontSize: 14,
+                                  ).poppinsSemiBold,
+                                ),
+                              )
+                            : RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Resend OTP in ",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                      ).poppinsRegular,
+                                    ),
+                                    TextSpan(
+                                      text: "${pro.resendSeconds}s",
+                                      style: TextStyle(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary, // highlight
+                                        fontSize: 14,
+                                      ).poppinsSemiBold,
+                                    ),
+                                  ],
+                                ),
+                              );
+                      },
+                    ),
+                  ),
 
                   AppButton(
-                    onPressed: () =>
-                        provider.verifyOtp(context),
+                    onPressed: () => provider.verifyOtp(context),
                     isLoading: provider.isVerifyLoading,
                     name: AppString.verifyOtp,
                     padding: EdgeInsets.only(top: 30),

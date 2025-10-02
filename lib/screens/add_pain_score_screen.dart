@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
-
-class AddPainScoreScreen extends StatefulWidget {
+class AddPainScoreScreen extends StatelessWidget {
   const AddPainScoreScreen({super.key});
 
   @override
-  State<AddPainScoreScreen> createState() => _AddPainScoreScreenState();
-}
-
-class _AddPainScoreScreenState extends State<AddPainScoreScreen> {
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<AddPainScoreProvider>(context);
     return AppScaffold(
       appBarTitle: AppString.painScore,
       bottomSafeArea: false,
@@ -23,30 +18,68 @@ class _AddPainScoreScreenState extends State<AddPainScoreScreen> {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: AppGestures(
-                onTap: () {
-                  ShowPopUp.dialogueBox(
-                    context: context,
-                    body: AddFeedbackDialogue(),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: theme.primary.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 10,
-                    children: [
-                      Icon(Icons.add, color: theme.primary, size: 25),
-                      AppText(
-                        AppString.addFeedback,
-                        style: TextStyle(fontSize: 14).poppinsMedium,
+              child: Visibility(
+                visible: provider.feedBack == null,
+                replacement: Stack(
+                  children: [
+                    AppGestures(
+                      onTap: () => provider.onTapAddFeedback(context),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(top: 5, left: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: theme.outlineVariant,
+                            width: 1,
+                          ),
+                        ),
+                        child: AppText(
+                          provider.feedBack.toString(),
+                          textAlign: TextAlign.end,
+                          style: TextStyle(fontSize: 13).poppinsRegular,
+                        ),
                       ),
-                    ],
+                    ),
+                    AppGestures(
+                      onTap: () => provider.onClearFeedBack(),
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          color: AppColors.colorRed,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.remove,
+                          size: 20,
+                          color: AppColors.colorWhite,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                child: AppGestures(
+                  onTap: () => provider.onTapAddFeedback(context),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: theme.primary.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      spacing: 10,
+                      children: [
+                        Icon(Icons.add, color: theme.primary, size: 25),
+                        AppText(
+                          AppString.addFeedback,
+                          style: TextStyle(fontSize: 14).poppinsMedium,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -61,7 +94,10 @@ class _AddPainScoreScreenState extends State<AddPainScoreScreen> {
                 ).poppinsRegular,
               ),
             ),
-            NumberPickerCustom(),
+            NumberPickerCustom(
+              initialValue: 5,
+              onValueChanged: (value) => provider.onChangePainScore(value),
+            ),
             Align(
               alignment: Alignment.topRight,
               child: AppText(
@@ -72,39 +108,73 @@ class _AddPainScoreScreenState extends State<AddPainScoreScreen> {
                 ).poppinsSemiBold,
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: theme.surface,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: theme.outlineVariant),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 12,
-                children: [
-                  AppImage(imagePath: 'assets/images/svg/ic_upload_icon.svg'),
-                  AppText(
-                    AppString.clickToUpload,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: theme.onSecondaryFixedVariant,
-                    ).poppinsMedium,
+            AppGestures(
+              onTap: () => provider.onTapClickToUpload(),
+              child: Visibility(
+                visible: provider.pickedImage == null,
+                replacement: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 7, left: 7),
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(14),
+                        child: AppImage(
+                          imagePath: provider.pickedImage?.path ?? '',
+                          height: 225,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    AppGestures(
+                      onTap: () => provider.clearImage(),
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          color: AppColors.colorRed,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.remove,
+                          size: 20,
+                          color: AppColors.colorWhite,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: theme.surface,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: theme.outlineVariant),
                   ),
-                ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 12,
+                    children: [
+                      AppImage(
+                        imagePath: 'assets/images/svg/ic_upload_icon.svg',
+                      ),
+                      AppText(
+                        AppString.clickToUpload,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: theme.onSecondaryFixedVariant,
+                        ).poppinsMedium,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
 
             AppButton(
               padding: EdgeInsets.symmetric(vertical: 15),
-              onPressed: () {
-                ShowPopUp.dialogueBox(
-                  context: context,
-                  body: PainScoreSuccessDialogue(),
-                );
-              },
+              onPressed: () => provider.addPainScoreApi(context: context),
               name: AppString.continueText,
             ),
           ],
@@ -120,6 +190,7 @@ class AddFeedbackDialogue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<AddPainScoreProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -147,6 +218,7 @@ class AddFeedbackDialogue extends StatelessWidget {
             ],
           ),
           TextFormField(
+            controller: provider.feedbackController,
             textAlign: TextAlign.right,
             maxLines: null,
             minLines: 4,
@@ -176,9 +248,7 @@ class AddFeedbackDialogue extends StatelessWidget {
                 ),
                 Expanded(
                   child: AppButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => provider.onSaveFeedback(context),
                     name: AppString.save,
                     buttonColor: theme.primary.withValues(alpha: 0.2),
                     textStyle: TextStyle(
@@ -222,7 +292,7 @@ class PainScoreSuccessDialogue extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: AppText(
               AppString.pinScoreSubmitted,
               style: TextStyle(

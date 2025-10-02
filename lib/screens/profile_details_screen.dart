@@ -12,6 +12,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<DashboardProvider>(context);
     return AppScaffold(
       showAppBar: false,
       appBarTitle: AppString.profile,
@@ -38,9 +39,11 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                             shape: BoxShape.circle,
                           ),
                           child: ClipOval(
-                            child: AppNetworkImage(
-                              image:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRch6CDHA9hqbe3GbIo6O0T-EWeIL7JJ8_cpQ&s',
+                            child: AppImage(
+                              imagePath: provider.userImage,
+                              errorWidget: AppImage(
+                                imagePath: AppAssets.noProfileImage,
+                              ),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -76,6 +79,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                         title: AppString.fullName,
                         onEditTap: () {},
                         child: TextFormField(
+                          controller: TextEditingController(
+                            text: provider.userName,
+                          ),
+                          style: TextStyle(
+                            fontSize: 14
+                          ).poppinsRegular,
                           textAlign: TextAlign.right,
                           decoration: InputDecoration().defaultTextField(
                             hintText: '',
@@ -89,6 +98,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       onEditTap: () {},
                       child: TextFormField(
                         textAlign: TextAlign.right,
+                        controller: TextEditingController(
+                          text: provider.userEmail,
+                        ),
+                        style: TextStyle(
+                            fontSize: 14
+                        ).poppinsRegular,
                         decoration: InputDecoration().defaultTextField(
                           hintText: '',
                           context: context,
@@ -99,6 +114,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       title: AppString.phoneOptional,
                       onEditTap: () {},
                       child: TextFormField(
+                        controller: TextEditingController(
+                          text: provider.userPhone,
+                        ),
+                        style: TextStyle(
+                            fontSize: 14
+                        ).poppinsRegular,
                         textAlign: TextAlign.right,
                         decoration: InputDecoration().defaultTextField(
                           hintText: '',

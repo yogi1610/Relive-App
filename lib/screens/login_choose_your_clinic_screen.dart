@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class LoginChooseYourClinicScreen extends StatefulWidget {
-  const LoginChooseYourClinicScreen({super.key});
+  final List<Clinics> clinicsList;
+
+  const LoginChooseYourClinicScreen({super.key, required this.clinicsList});
 
   @override
   State<LoginChooseYourClinicScreen> createState() =>
@@ -14,6 +16,7 @@ class _LoginChooseYourClinicScreenState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<LoginProvider>(context);
     return AppScaffold(
       appBarTitle: AppString.chooseYourClinic,
       body: SingleChildScrollView(
@@ -32,19 +35,6 @@ class _LoginChooseYourClinicScreenState
                 ).poppinsRegular,
               ),
             ),
-            TextFormField(
-              textAlign: TextAlign.right,
-              decoration: InputDecoration().suffixIconTextField(
-                suffix: Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: AppImage(
-                    imagePath: 'assets/images/svg/ic_search_icon.svg',
-                  ),
-                ),
-                hintText: AppString.searchClinic,
-                context: context,
-              ),
-            ),
             ListView.separated(
               shrinkWrap: true,
               padding: EdgeInsets.zero,
@@ -52,11 +42,16 @@ class _LoginChooseYourClinicScreenState
               separatorBuilder: (context, index) {
                 return SizedBox(height: 15.h);
               },
-              itemCount: 4,
+              itemCount: widget.clinicsList.length,
               itemBuilder: (context, index) {
+                var item = widget.clinicsList[index];
                 return AppGestures(
-                  onTap: (){
-                    CustomNavigator.pushNavigate(context: context, page: DashboardScreen(selectedPage: 0,),);
+                  onTap: () {
+                    provider.loginApi(
+                      context: context,
+                      inputData: provider.emailPhoneController.text,
+                      clinicId: item.id.toString(),
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.all(15),
@@ -88,7 +83,7 @@ class _LoginChooseYourClinicScreenState
                             spacing: 5,
                             children: [
                               AppText(
-                                'Wellness Control',
+                                item.name ?? '',
                                 style: TextStyle(fontSize: 14).poppinsSemiBold,
                               ),
                               Row(
@@ -96,7 +91,7 @@ class _LoginChooseYourClinicScreenState
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   AppText(
-                                    'California, USA',
+                                    item.address ?? '',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: theme.onSecondaryFixedVariant,
@@ -111,12 +106,15 @@ class _LoginChooseYourClinicScreenState
                             ],
                           ),
                         ),
-                        ClipOval(
-                          child: AppImage(
-                            imagePath:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxgQ-6BAIFPkMplkea7TVNAKlAe9F4PIQ4Hg&s',
-                            height: 50,
-                            width: 50,
+                        Visibility(
+                          visible: item.image != null,
+                          child: ClipOval(
+                            child: AppImage(
+                              imagePath: item.image ?? '',
+                              errorWidget: SizedBox.shrink(),
+                              height: 50,
+                              width: 50,
+                            ),
                           ),
                         ),
                       ],

@@ -38,6 +38,9 @@ class AppProviders {
         ChangeNotifierProvider(
           create: (_) => AppointmentProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => AddPainScoreProvider(),
+        ),
       ],
       child: child,
     );

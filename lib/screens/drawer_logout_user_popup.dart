@@ -23,7 +23,7 @@ class _DeleteAppointmentDialogueState extends State<LogoutUserAccountPopup> {
             alignment: Alignment.topLeft,
             child: AppGestures(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).pop(false);
               },
               child: AppImage(imagePath: 'assets/images/svg/ic_close_icon.svg'),
             ),
@@ -46,7 +46,7 @@ class _DeleteAppointmentDialogueState extends State<LogoutUserAccountPopup> {
                   child: AppButton(
                     btnHeight: 50.h,
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context).pop(false);
                     },
                     borderColor: theme.primary,
                     buttonColor: theme.surface,
@@ -57,7 +57,7 @@ class _DeleteAppointmentDialogueState extends State<LogoutUserAccountPopup> {
                 Expanded(
                   child: AppButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context).pop(true);
                     },
                     name: AppString.yes,
                     buttonColor: theme.primary.withValues(alpha: 0.2),

@@ -1,11 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/screens/appointment_screen.dart';
-import 'package:relive_app/screens/home_screen.dart';
-import 'package:relive_app/screens/progress_report_screen.dart';
+import '../utils/app_files_imports.dart';
 
 class DashboardProvider extends ChangeNotifier {
+  /// ============= PATIENT INFO ==============
+
+  String _userName = '';
+
+  String get userName => _userName;
+
+  String _userEmail = '';
+
+  String get userEmail => _userEmail;
+
+  String _userImage = '';
+
+  String get userImage => _userImage;
+
+  String userPhone = '';
+  String countryCode = '';
+
+  Future<void> updateUserData({
+    required String name,
+    required String email,
+    String? image,
+  }) async {
+    _userName = name;
+    _userEmail = email;
+    if (image != null) {
+      _userImage = image;
+    }
+    notifyListeners();
+  }
+
+  Future<void> patientInfoApi() async {
+    final response = await Apis.patientInfo(body: {});
+    if (response != null && response.status) {
+      await updateUserData(
+        name: response.patient.name,
+        email: response.patient.email,
+        image: response.patient.image,
+      );
+      userPhone = response.patient.phone;
+      countryCode = response.patient.countryCode;
+      notifyListeners();
+    } else {}
+  }
+
+  /// ============ BOTTOM NAVIGATION BAR ===========
+
   int _selectedPage = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
   int get selectedPage => _selectedPage;
@@ -44,6 +89,38 @@ class DashboardProvider extends ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  /// =============== LOGOUT USER ===============
+
+  Future<void> logoutApi(BuildContext context) async {
+    AppUtils.progressLoadingDialog(context, true);
+    Map<String, String> body = {};
+    body['device_id'] = 'xx123'; // need to make it dynamic
+    var jsonResponse = await Apis.logout(body: body);
+    if (context.mounted) {
+      AppUtils.progressLoadingDialog(context, false);
+    }
+    if (jsonResponse[AppConstants.apiStatus]) {
+      await userLogout();
+      AppMessage.success(jsonResponse[AppConstants.apiMessage]);
+      if (context.mounted) _onLogOutSuccess(context);
+    } else {
+      AppMessage.error(jsonResponse[AppConstants.apiMessage]);
+    }
+    notifyListeners();
+  }
+
+  void _onLogOutSuccess(BuildContext context) {
+    CustomNavigator.pushAndRemoveUntilWithZeroTransition(
+      context,
+      LoginScreen(),
+    );
+  }
+
+  Future<void> userLogout() async {
+    AppStorageManager.saveData(AppKeys.isUserLogin, false);
+    AppStorageManager.deleteData(AppKeys.clinicId);
+    AppStorageManager.deleteData(AppKeys.userId);
+  }
 }
 
 class NavigationBarModel {

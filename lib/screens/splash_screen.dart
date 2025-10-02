@@ -11,18 +11,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    navigateToLogin(context);
     super.initState();
-  }
-
-  void navigateToLogin(BuildContext context) async {
-    await Future.delayed(Duration(seconds: 2));
-    if (context.mounted) {
-      CustomNavigator.pushAndRemoveUntilWithZeroTransition(
-        context,
-        LoginScreen(),
-      );
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AuthService().keepAlwaysLogin(context);
+    });
   }
 
   @override
