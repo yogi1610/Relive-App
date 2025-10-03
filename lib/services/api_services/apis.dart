@@ -187,4 +187,52 @@ class Apis {
       return null;
     }
   }
+
+  static Future<Map<String, dynamic>> createOrUpdateAppointment({
+    required Map<String, String> body,
+  }) async {
+    var header = await ApiMethods.getHeaderWithToken();
+
+    String url = ApiUrls.createOrUpdateAppointment;
+    String res = await _apiClient.postMethod(
+      method: url,
+      body: body,
+      header: header,
+    );
+    if (res.isNotEmpty) {
+      try {
+        return jsonDecode(res);
+      } catch (e) {
+        AppMessage.error('exception is $e');
+        return {};
+      }
+    } else {
+      AppMessage.error('Failed');
+      return {};
+    }
+  }
+
+  static Future<Map<String, dynamic>> getDailyAppointments({
+    required Map<String, String> body,
+  }) async {
+    var header = await ApiMethods.getHeaderWithToken();
+
+    String url = ApiUrls.getDailyAppointments;
+    String res = await _apiClient.getMethod(
+      method: url,
+      body: body,
+      header: header,
+    );
+    if (res.isNotEmpty) {
+      try {
+        return jsonDecode(res);
+      } catch (e) {
+        AppMessage.error('exception is $e');
+        return {};
+      }
+    } else {
+      AppMessage.error('Failed');
+      return {};
+    }
+  }
 }

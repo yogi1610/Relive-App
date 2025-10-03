@@ -105,3 +105,4 @@ export 'package:relive_app/providers/add_pain_score_provider.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:dio/dio.dart';
 export 'package:relive_app/models/response_blogs.dart';
+export 'package:relive_app/providers/wellness_provider.dart';

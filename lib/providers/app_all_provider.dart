@@ -41,6 +41,9 @@ class AppProviders {
         ChangeNotifierProvider(
           create: (_) => AddPainScoreProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => WellnessProvider(),
+        ),
       ],
       child: child,
     );

@@ -42,8 +42,20 @@ class DashboardProvider extends ChangeNotifier {
       );
       userPhone = response.patient.phone;
       countryCode = response.patient.countryCode;
+      await saveValues(response);
       notifyListeners();
     } else {}
+  }
+
+  Future<void> saveValues(PatientInfoResponse response) async {
+    AppStorageManager.saveData(
+      AppKeys.doctorId,
+      response.patient.doctor.id.toString(),
+    );
+    AppStorageManager.saveData(
+      AppKeys.clinicId,
+      response.patient.clinic.id.toString(),
+    );
   }
 
   /// ============ BOTTOM NAVIGATION BAR ===========

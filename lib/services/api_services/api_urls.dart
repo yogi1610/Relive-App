@@ -25,4 +25,6 @@ class ApiUrls {
   static const logout = '${baseUrl}logout';
   static const storePatientPainScore = '${baseUrl}store-patient-pain-score';
   static const getAllBlogs = '${baseUrl}get-all-blogs';
+  static const createOrUpdateAppointment = '${baseUrl}create-or-update-appointment';
+  static const getDailyAppointments = '${baseUrl}get-daily-appointments';
 }

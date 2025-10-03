@@ -9,4 +9,8 @@ class ApiKeys {
   static const perPage = 'per_page';
   static const searchKey = 'search_key';
   static const filter = 'filter';
+  static const startTime = 'start_time';
+  static const appointmentType = 'appointment_type';
+  static const appointmentDate = 'appointment_date';
+  static const doctorId = 'doctor_id';
 }

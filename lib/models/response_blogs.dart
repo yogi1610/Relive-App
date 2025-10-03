@@ -79,6 +79,7 @@ class BlogsList {
   int totalView;
   DateTime createdAt;
   DateTime updatedAt;
+  bool? expanded;
   dynamic deletedAt;
 
   BlogsList({
@@ -97,6 +98,7 @@ class BlogsList {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
+    this.expanded,
   });
 
   factory BlogsList.fromJson(Map<String, dynamic> json) => BlogsList(

@@ -1,16 +1,17 @@
-import '../utils/app_files_imports.dart';
+import 'package:flutter/material.dart';
 
-import 'package:flutter/foundation.dart';
+import '../utils/app_files_imports.dart';
 
 class AddNewAppointmentProvider extends ChangeNotifier {
   /// =========== for selection of practitioner ===========
-  bool _isPractitionerDropdownOpen = false;
 
-  bool get isPractitionerDropdownOpen => _isPractitionerDropdownOpen;
+  String? _selectedDate;
 
-  String _selectedPractitioner = 'Dr. Wilson';
+  String? get selectedDate => _selectedDate;
 
-  String get selectedPractitioner => _selectedPractitioner;
+  String? _selectedTime;
+
+  String? get selectedTime => _selectedTime;
 
   List<String> practitionerList = [
     'Dr. Wilson',
@@ -19,17 +20,6 @@ class AddNewAppointmentProvider extends ChangeNotifier {
     'Dr. Simran',
     'Dr. Divya',
   ];
-
-  void onTapPractitionerItem(int index) {
-    _selectedPractitioner = practitionerList[index];
-    _isPractitionerDropdownOpen = false;
-    notifyListeners();
-  }
-
-  void onTapPractitioner() {
-    _isPractitionerDropdownOpen = true;
-    notifyListeners();
-  }
 
   /// =========== for selection of Appointment type ===========
   bool _isAppointmentTypeDropdownOpen = false;
@@ -52,4 +42,100 @@ class AddNewAppointmentProvider extends ChangeNotifier {
     _isAppointmentTypeDropdownOpen = true;
     notifyListeners();
   }
+
+  void onTapSelectDate(BuildContext context) async {
+    DateTime? selectedDate = await AppDateOrTimePicker.showDate(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2030),
+    );
+    if (selectedDate != null) {
+      _selectedDate = AppDateFormat.formatToYYYYMMDD(selectedDate.toString());
+      notifyListeners();
+    }
+  }
+
+  void onTapSelectTime(BuildContext context) async {
+    _selectedTime = await AppDateOrTimePicker.showTime(context) ?? '';
+    notifyListeners();
+  }
+
+  void onTapCancel(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  Future<void> addNewAppointmentApi({required BuildContext context}) async {
+    // Validation
+    if (_selectedDate == null || _selectedDate!.isEmpty) {
+      AppMessage.warning("Please select appointment date");
+      return;
+    }
+    if (_selectedTime == null || _selectedTime!.isEmpty) {
+      AppMessage.warning("Please select appointment time");
+      return;
+    }
+    if (selectedAppointmentType.isEmpty) {
+      AppMessage.warning("Please select appointment type");
+      return;
+    }
+
+    AppUtils.progressLoadingDialog(context, true);
+
+    Map<String, String> body = {};
+    body[ApiKeys.doctorId] =
+        await AppStorageManager.readData(AppKeys.doctorId) ?? '';
+    body[ApiKeys.appointmentDate] = _selectedDate ?? '';
+    body[ApiKeys.startTime] = _selectedTime ?? '';
+    body[ApiKeys.appointmentType] = finalAppointmentType(
+      selectedAppointmentType,
+    );
+
+    var jsonResponse = await Apis.createOrUpdateAppointment(body: body);
+
+    if (context.mounted) {
+      AppUtils.progressLoadingDialog(context, false);
+    }
+
+    if (jsonResponse[AppConstants.apiStatus] == true) {
+      clearData();
+      if (context.mounted) {
+        _onAppointmentCreateSuccess(
+          context,
+          jsonResponse[AppConstants.apiMessage],
+        );
+      }
+    } else {
+      AppMessage.error(jsonResponse[AppConstants.apiMessage]);
+    }
+  }
+
+  void _onAppointmentCreateSuccess(BuildContext context, String message) {
+    if (context.mounted) {
+      ShowPopUp.dialogueBox(
+        context: context,
+        body: AppointmentSuccessDialogue(successMessage: message),
+      );
+    }
+  }
+
+  clearData() {
+    _selectedTime = null;
+    _selectedDate = null;
+    notifyListeners();
+  }
+
+  String finalAppointmentType(String value) {
+    if (value == 'Consultation') {
+      return AppointmentType.consultation.name;
+    } else if (value == 'Injection') {
+      return AppointmentType.injection.name;
+    } else if (value == 'Follow-up') {
+      return AppointmentType.followup.name;
+    } else {
+      return AppointmentType.consultation.name;
+    }
+  }
 }
+
+enum AppointmentType { consultation, injection, followup }

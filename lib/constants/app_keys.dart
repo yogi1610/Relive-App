@@ -10,4 +10,5 @@ class AppKeys{
   static const uniqueId = "unique_id";
   static const rememberMeStatus = "remember_me_status";
   static const phoneOrEmail = "phone_or_email";
+  static const doctorId = "doctor_id";
 }

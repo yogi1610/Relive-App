@@ -3,12 +3,17 @@ import 'package:flutter/cupertino.dart';
 import '../utils/app_files_imports.dart';
 
 class AppointmentProvider extends ChangeNotifier {
+
+  AppointmentProvider(){
+    getAppointmentsApi();
+  }
+
   String? _selectedDate;
 
   String? get selectedDate => _selectedDate;
 
   void onTapSelectDate(BuildContext context) async {
-    DateTime? selectedDate = await AppDatePicker.show(
+    DateTime? selectedDate = await AppDateOrTimePicker.showDate(
       context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
@@ -18,5 +23,9 @@ class AppointmentProvider extends ChangeNotifier {
       _selectedDate = AppDateFormat.formatToYYYYMMDD(selectedDate.toString());
       notifyListeners();
     }
+  }
+
+  Future<void> getAppointmentsApi() async {
+    await Apis.getDailyAppointments(body: {});
   }
 }

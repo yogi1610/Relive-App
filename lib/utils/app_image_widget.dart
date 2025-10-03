@@ -126,3 +126,31 @@ class AppImage extends StatelessWidget {
     }
   }
 }
+
+Widget errorImageWidget({
+  required BuildContext context,
+  required double height,
+  double? width,
+}) {
+  return Container(
+    height: height,
+    padding: EdgeInsets.all(10),
+    width: width ?? double.infinity,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+          Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+        ],
+      ),
+    ),
+    child: Icon(
+      Icons.no_photography_outlined,
+      size: 40,
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
+    ),
+  );
+}

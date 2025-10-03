@@ -12,6 +12,22 @@ class HomeWellnessPlanScreen extends StatefulWidget {
 
 class _HomeWellnessPlanScreenState extends State<HomeWellnessPlanScreen> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      allApis();
+    });
+  }
+
+  allApis() {
+    final wellnessProvider = Provider.of<WellnessProvider>(
+      context,
+      listen: false,
+    );
+    wellnessProvider.blogsApi(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return AppScaffold(
