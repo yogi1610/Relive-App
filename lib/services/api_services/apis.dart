@@ -243,7 +243,7 @@ class Apis {
     var header = await ApiMethods.getHeaderWithToken();
 
     String url = ApiUrls.deleteAppointment;
-    String res = await _apiClient.postMethod(
+    String res = await _apiClient.deleteMethod(
       method: url,
       body: body,
       header: header,

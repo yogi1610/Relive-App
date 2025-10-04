@@ -143,27 +143,19 @@ class ApiMethods {
   }
 
   Future<String> deleteMethod({
-    required method,
-    required Map<String, dynamic> body,
+    required String method,
+    required Map<String, dynamic>? body,
     Map<String, String>? header,
   }) async {
     if (await CheckInternet.isInternetConnected()) {
       try {
-        /*
-        log('Post Request url: $method');
-        if (header != null) {
-          log('Request header:  ${header.toString()}');
-        }
-        log('Request body: $body');
-         */
-
-        /// HTTP Code commit
         final response = await http.delete(
-          Uri.parse(method),
-          body: jsonEncode(body),
+          Uri.parse(method).replace(queryParameters: body),
           headers: header,
         );
-        debugPrint('url ---- ${Uri.parse(method)} ----');
+        debugPrint(
+          'url ---- ${Uri.parse(method).replace(queryParameters: body)} ----',
+        );
         debugPrint('header ---- ${header.toString()} ----');
         debugPrint('body ---- ${body.toString()} ----');
         log('response ---- ${response.body.toString()} ----');
@@ -172,9 +164,7 @@ class ApiMethods {
          */
         return response.body;
       } catch (e) {
-        log(
-          '___catch___post Method error---$method>>>>> ${e.toString()}<<<<<<',
-        );
+        log('___catch___get Method error---$method>>>>> ${e.toString()}<<<<<<');
         return '';
       }
     } else {

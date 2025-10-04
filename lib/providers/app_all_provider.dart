@@ -27,9 +27,6 @@ class AppProviders {
           create: (_) => AddNewAppointmentProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => EditAppointmentProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => ProgressReportProvider(),
         ),
         ChangeNotifierProvider(

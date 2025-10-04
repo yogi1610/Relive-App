@@ -51,6 +51,16 @@ class AddNewAppointmentProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> initDataForEditAppointment(AppointmentList appointment) async {
+    _selectedTime = appointment.startTime;
+    _selectedDate = AppDateOrTimeFormat.formatToYYYYMMDD(appointment.appointmentDate.toString());
+    _selectedAppointmentType = getSelectedAppointmentType(
+      appointment.appointmentType,
+    );
+    notesController.text = appointment.notes ?? '';
+    notifyListeners();
+  }
+
   void onTapSelectTime(BuildContext context) async {
     _selectedTime = await AppDateOrTimePicker.showTime(context) ?? '';
     notifyListeners();
@@ -60,24 +70,31 @@ class AddNewAppointmentProvider extends ChangeNotifier {
     Navigator.of(context).pop();
   }
 
-  Future<void> addNewAppointmentApi({required BuildContext context}) async {
+  Future<bool> addNewAppointmentApi({
+    required BuildContext context,
+    bool? isEditingAppointment,
+    String? appointmentId,
+  }) async {
     // Validation
     if (_selectedDate == null || _selectedDate!.isEmpty) {
       AppMessage.warning("Please select appointment date");
-      return;
+      return false;
     }
     if (_selectedTime == null || _selectedTime!.isEmpty) {
       AppMessage.warning("Please select appointment time");
-      return;
+      return false;
     }
     if (selectedAppointmentType.isEmpty) {
       AppMessage.warning("Please select appointment type");
-      return;
+      return false;
     }
 
     AppUtils.progressLoadingDialog(context, true);
 
     Map<String, String> body = {};
+    if (isEditingAppointment == true) {
+      body[ApiKeys.id] = appointmentId ?? '';
+    }
     body[ApiKeys.doctorId] =
         await AppStorageManager.readData(AppKeys.doctorId) ?? '';
     body[ApiKeys.appointmentDate] = _selectedDate ?? '';
@@ -99,16 +116,23 @@ class AddNewAppointmentProvider extends ChangeNotifier {
       clearData();
 
       if (context.mounted) {
-        _onAppointmentCreateSuccess(
-          context,
-          jsonResponse[AppConstants.apiMessage],
-        );
+        if (isEditingAppointment == true) {
+          /// Taking back to last screen when doing edit appointment
+          Navigator.of(context).pop(true);
+        } else {
+          _onAppointmentCreateSuccess(
+            context,
+            jsonResponse[AppConstants.apiMessage],
+          );
+        }
       }
       if (context.mounted) {
         await loadLatestAppointments(context);
       }
+      return true;
     } else {
       AppMessage.error(jsonResponse[AppConstants.apiMessage]);
+      return false;
     }
   }
 
@@ -154,6 +178,18 @@ class AddNewAppointmentProvider extends ChangeNotifier {
       return AppointmentType.followup.name;
     } else {
       return AppointmentType.consultation.name;
+    }
+  }
+
+  String getSelectedAppointmentType(String value) {
+    if (value == AppointmentType.consultation.name) {
+      return 'Consultation';
+    } else if (value == AppointmentType.injection.name) {
+      return 'Injection';
+    } else if (value == AppointmentType.followup.name) {
+      return 'Follow-up';
+    } else {
+      return 'Consultation';
     }
   }
 }

@@ -96,7 +96,9 @@ class _AddNewAppointmentScreenState extends State<AddNewAppointmentScreen> {
                               Flexible(
                                 child: AppText(
                                   (provider.selectedTime?.isNotEmpty ?? false)
-                                      ? provider.selectedTime.toString()
+                                      ? AppDateOrTimeFormat.formatTime12Hour(
+                                          provider.selectedTime.toString(),
+                                        )
                                       : '-- : -- --',
                                   style: TextStyle(
                                     fontSize: 14,

@@ -33,7 +33,12 @@ class AppointmentDetailsScreen extends StatelessWidget {
                     onTap: () {
                       CustomNavigator.pushNavigate(
                         context: context,
-                        page: AppointmentEditScreen(),
+                        page: AppointmentEditScreen(appointment: appointment),
+                        hitApi: (val) {
+                          if (val != null && val == true) {
+                            Navigator.pop(context);
+                          }
+                        },
                       );
                     },
                     child: SvgPicture.asset('assets/images/svg/ic_edit.svg'),
