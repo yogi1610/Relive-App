@@ -166,4 +166,5 @@ class AppString {
   static const otpMustBe6Digits = 'otp_must_be_6_digits';
   static const invalidOtpFormat = 'invalid_otp_format';
   static const addMeetingNotes = 'add_meeting_notes';
+  static const noInformationFound = 'no_information_found';
 }

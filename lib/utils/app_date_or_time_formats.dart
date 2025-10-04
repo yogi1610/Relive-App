@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class AppDateFormat {
+class AppDateOrTimeFormat {
   static String formatToYYYYMMDD(String? dateString) {
     try {
       if (dateString == null || dateString.isEmpty) return "";
@@ -38,6 +38,16 @@ class AppDateFormat {
       return DateFormat("MMMM d, yyyy").format(dt);
     } catch (e) {
       return "";
+    }
+  }
+
+  static String formatTime12Hour(String time24) {
+    try {
+      final dateTime = DateFormat("HH:mm:ss").parse(time24);
+      return DateFormat("hh:mm a").format(dateTime).toUpperCase();
+    } catch (e) {
+      // Agar invalid format aaye to original return kar de
+      return time24;
     }
   }
 }

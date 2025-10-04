@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:relive_app/services/pagination_services/pagination_helper.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
 class BlogsProvider extends ChangeNotifier {
   bool _isSortOpen = false;
+
   bool get isSortOpen => _isSortOpen;
 
   String _selectedSort = AppString.mostRecent;
+
   String get selectedSort => _selectedSort;
 
   List<String> sortList = [AppString.mostRecent, AppString.mostPopular];
@@ -77,16 +78,14 @@ class BlogsProvider extends ChangeNotifier {
     blogsList.clear();
     paginationHelper.reset();
 
-    // Manually fetch first page with new filter
     _getAllBlogsApi(page: 1, perPage: 5, filter: filterQuery).then((newItems) {
       if (newItems.isNotEmpty) {
-        paginationHelper.currentPage = 2; // next page
+        blogsList.addAll(newItems);
+        paginationHelper.currentPage = 2;
       }
+      notifyListeners();
     });
-
-    notifyListeners();
   }
-
 
   void onTapSort() {
     _isSortOpen = true;
@@ -95,10 +94,25 @@ class BlogsProvider extends ChangeNotifier {
 
   void searchBlogs({required String query}) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
+
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
       searchQuery = query.isEmpty ? null : query;
       blogsList.clear();
       paginationHelper.reset();
+
+      // Fetch first page based on search
+      final newItems = await _getAllBlogsApi(
+        page: 1,
+        perPage: 5,
+        search: searchQuery,
+        filter: filterQuery,
+      );
+
+      if (newItems.isNotEmpty) {
+        blogsList.addAll(newItems);
+        paginationHelper.currentPage = 2; // next page ready
+      }
+
       notifyListeners();
     });
   }
@@ -139,4 +153,3 @@ class BlogsProvider extends ChangeNotifier {
     paginationHelper.dispose();
   }
 }
-

@@ -17,10 +17,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    // Set initial selected page
-    final provider = Provider.of<DashboardProvider>(context, listen: false);
-    provider.onNavBarItemTap(widget.selectedPage, false);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final dashboardProvider =
+      Provider.of<DashboardProvider>(context, listen: false);
+
+      // set selected page
+      dashboardProvider.onNavBarItemTap(widget.selectedPage, false);
+
+      // Pre-load APIs only if user is at index 0 (home tab)
+      if (widget.selectedPage == 0) {
+        dashboardProvider.preLoadApis(context);
+      }
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {

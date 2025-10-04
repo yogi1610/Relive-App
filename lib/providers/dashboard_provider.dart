@@ -133,6 +133,36 @@ class DashboardProvider extends ChangeNotifier {
     AppStorageManager.deleteData(AppKeys.clinicId);
     AppStorageManager.deleteData(AppKeys.userId);
   }
+
+  /// ============= Pre-Load Api of other tabs ================
+
+  Future<void> preLoadApis(BuildContext context) async {
+    try {
+      await Future.wait([
+        appointmentsApi(context),
+      ]);
+    } catch (e) {
+      debugPrint('Preload error: $e');
+    }
+  }
+
+
+  Future<void> appointmentsApi(BuildContext context) async {
+    try {
+      final appointment = Provider.of<AppointmentProvider>(
+        context,
+        listen: false,
+      );
+      await appointment.getAllAppointmentsApi(
+        context: context,
+        page: 1,
+        perPage: 10,
+      );
+    } catch (e) {
+      debugPrint('appointmentsApi EXCEPTION ------- $e');
+      return;
+    }
+  }
 }
 
 class NavigationBarModel {

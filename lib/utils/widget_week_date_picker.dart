@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'app_files_imports.dart';
 
 class WeeklyDatePicker extends StatefulWidget {
-  const WeeklyDatePicker({super.key});
+  final void Function(String selectedDate)? onDateChanged;
+
+  const WeeklyDatePicker({super.key, this.onDateChanged});
 
   @override
   State<WeeklyDatePicker> createState() => _WeeklyDatePickerState();
@@ -29,8 +31,7 @@ class _WeeklyDatePickerState extends State<WeeklyDatePicker> {
             currentDate.year == selectedDate.year;
 
         String formattedDay = DateFormat("d").format(currentDate);
-        String formattedFull =
-        currentDate.day == today.day &&
+        String formattedFull = currentDate.day == today.day &&
             currentDate.month == today.month &&
             currentDate.year == today.year
             ? "Today, ${DateFormat('d MMM').format(currentDate)}"
@@ -40,9 +41,14 @@ class _WeeklyDatePickerState extends State<WeeklyDatePicker> {
             ? Padding(
           padding: EdgeInsets.symmetric(horizontal: 2.w),
           child: AppGestures(
-            onTap: () => setState(() => selectedDate = currentDate),
+            onTap: () {
+              setState(() => selectedDate = currentDate);
+              widget.onDateChanged
+                  ?.call(DateFormat('yyyy-MM-dd').format(currentDate));
+            },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              padding:
+              EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
               decoration: BoxDecoration(
                 color: theme.primary.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(25),
@@ -60,7 +66,11 @@ class _WeeklyDatePickerState extends State<WeeklyDatePicker> {
         )
             : Expanded(
           child: AppGestures(
-            onTap: () => setState(() => selectedDate = currentDate),
+            onTap: () {
+              setState(() => selectedDate = currentDate);
+              widget.onDateChanged
+                  ?.call(DateFormat('yyyy-MM-dd').format(currentDate));
+            },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 2.w),
               padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -78,6 +88,6 @@ class _WeeklyDatePickerState extends State<WeeklyDatePicker> {
         );
       }),
     );
-
   }
 }
+

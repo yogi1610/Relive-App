@@ -165,5 +165,6 @@
   "please_enter_otp": "Please enter OTP",
   "otp_must_be_6_digits": "OTP must be 6 digits",
   "invalid_otp_format": "Invalid OTP format",
-  "add_meeting_notes": "Add Notes"
+  "add_meeting_notes": "Add Notes",
+  "no_information_found": "No Information Found"
 }

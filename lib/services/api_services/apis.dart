@@ -212,7 +212,7 @@ class Apis {
     }
   }
 
-  static Future<Map<String, dynamic>> getDailyAppointments({
+  static Future<GetAppointmentsResponse?> getDailyAppointments({
     required Map<String, String> body,
   }) async {
     var header = await ApiMethods.getHeaderWithToken();
@@ -223,16 +223,17 @@ class Apis {
       body: body,
       header: header,
     );
+
     if (res.isNotEmpty) {
       try {
-        return jsonDecode(res);
+        return getAppointmentsResponseFromJson(res);
       } catch (e) {
-        AppMessage.error('exception is $e');
-        return {};
+        AppMessage.error('Parsing error: $e');
+        return null;
       }
     } else {
       AppMessage.error('Failed');
-      return {};
+      return null;
     }
   }
 

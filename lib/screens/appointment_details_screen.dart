@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:relive_app/utils/app_files_imports.dart';
 
-class AppointmentDetailsScreen extends StatefulWidget {
-  const AppointmentDetailsScreen({super.key});
+class AppointmentDetailsScreen extends StatelessWidget {
+  final AppointmentList appointment;
 
-  @override
-  State<AppointmentDetailsScreen> createState() =>
-      _AppointmentDetailsScreenState();
-}
+  const AppointmentDetailsScreen({super.key, required this.appointment});
 
-class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppointmentProvider>(context);
@@ -29,7 +25,7 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
                   AppGestures(
                     onTap: () => provider.onTapAppointmentDelete(
                       context: context,
-                      appointmentId: '',
+                      appointmentId: appointment.id.toString(),
                     ),
                     child: SvgPicture.asset('assets/images/svg/ic_delete.svg'),
                   ),
@@ -55,10 +51,14 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
                           ),
 
                           AppText(
-                            'Consultation',
+                            appointTypeInfo(
+                              appointment.appointmentType,
+                            )['type'],
                             style: TextStyle(
                               fontSize: 12,
-                              color: AppColors.kBlue,
+                              color: appointTypeInfo(
+                                appointment.appointmentType,
+                              )['color'],
                             ).poppinsRegular,
                           ),
                         ],
@@ -81,25 +81,47 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
               alignment: Alignment.topRight,
               padding: EdgeInsets.only(top: 15),
               child: _infoWidget(
+                context: context,
                 title: AppString.date,
-                value: 'November 15, 2023',
+                value: AppDateOrTimeFormat.formatToHumanReadable(
+                  appointment.appointmentDate,
+                ),
               ),
             ),
 
-            _infoWidget(title: AppString.time, value: '9:00 AM'),
+            _infoWidget(
+              context: context,
+              title: AppString.time,
+              value: AppDateOrTimeFormat.formatTime12Hour(
+                appointment.startTime,
+              ),
+            ),
 
-            _infoWidget(title: AppString.practitioner, value: 'Dr. Wilson'),
+            _infoWidget(
+              context: context,
+              title: AppString.practitioner,
+              value: 'Dr. Wilson',
+            ),
 
-            _infoWidget(title: 'Reminder', value: 'Enabled'),
-
-            _infoWidget(title: 'Notes', value: 'Initial consultation'),
+            Visibility(
+              visible: appointment.notes != null,
+              child: _infoWidget(
+                context: context,
+                title: 'Notes',
+                value: appointment.notes.toString(),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _infoWidget({required String title, required String value}) {
+  Widget _infoWidget({
+    required BuildContext context,
+    required String title,
+    required String value,
+  }) {
     final theme = Theme.of(context).colorScheme;
     return Column(
       spacing: 10,
@@ -112,7 +134,11 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
             color: theme.onSecondaryFixedVariant,
           ).poppinsRegular,
         ),
-        AppText(value, style: TextStyle(fontSize: 16).poppinsMedium),
+        AppText(
+          value,
+          textAlign: TextAlign.right,
+          style: TextStyle(fontSize: 16).poppinsMedium,
+        ),
       ],
     );
   }

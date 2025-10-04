@@ -90,27 +90,19 @@ class _BlogsScreenState extends State<BlogsScreen> {
                         onTap: provider.onTapSort,
                       ),
                       ListView.separated(
-                        itemCount: provider.blogsList.length + (provider.paginationHelper.isLoading ? 1 : 0),
+                        itemCount: provider.blogsList.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         separatorBuilder: (_, __) => const SizedBox(height: 15),
                         itemBuilder: (context, index) {
-                          if (index < provider.blogsList.length) {
-                            final item = provider.blogsList[index];
-                            return ArticleCard(
-                              blog: item,
-                              isExpanded: item.expanded ?? false,
-                              onToggle: () {
-                                setState(() => item.expanded = !(item.expanded ?? false));
-                              },
-                            );
-                          } else {
-                            // Bottom loader
-                            return const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
+                          final item = provider.blogsList[index];
+                          return ArticleCard(
+                            blog: item,
+                            isExpanded: item.expanded ?? false,
+                            onToggle: () {
+                              setState(() => item.expanded = !(item.expanded ?? false));
+                            },
+                          );
                         },
                       ),
                     ],
@@ -235,7 +227,7 @@ class ArticleCard extends StatelessWidget {
                 ).poppinsMedium,
               ),
               AppText(
-                "Published: ${AppDateFormat.formatToHumanReadable(blog.createdAt)}",
+                "Published: ${AppDateOrTimeFormat.formatToHumanReadable(blog.createdAt)}",
                 style: TextStyle(
                   fontSize: 10,
                   color: theme.onSecondaryFixedVariant,

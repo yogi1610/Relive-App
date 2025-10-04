@@ -13,5 +13,6 @@ class ApiKeys {
   static const appointmentType = 'appointment_type';
   static const appointmentDate = 'appointment_date';
   static const doctorId = 'doctor_id';
+  static const date = 'date';
   static const id = 'id'; // appointment id
 }

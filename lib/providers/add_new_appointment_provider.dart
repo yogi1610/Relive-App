@@ -14,14 +14,6 @@ class AddNewAppointmentProvider extends ChangeNotifier {
 
   String? get selectedTime => _selectedTime;
 
-  List<String> practitionerList = [
-    'Dr. Wilson',
-    'Dr. Alex',
-    'Dr. Lois',
-    'Dr. Simran',
-    'Dr. Divya',
-  ];
-
   /// =========== for selection of Appointment type ===========
   bool _isAppointmentTypeDropdownOpen = false;
 
@@ -52,7 +44,9 @@ class AddNewAppointmentProvider extends ChangeNotifier {
       lastDate: DateTime(2030),
     );
     if (selectedDate != null) {
-      _selectedDate = AppDateFormat.formatToYYYYMMDD(selectedDate.toString());
+      _selectedDate = AppDateOrTimeFormat.formatToYYYYMMDD(
+        selectedDate.toString(),
+      );
       notifyListeners();
     }
   }
@@ -103,11 +97,15 @@ class AddNewAppointmentProvider extends ChangeNotifier {
 
     if (jsonResponse[AppConstants.apiStatus] == true) {
       clearData();
+
       if (context.mounted) {
         _onAppointmentCreateSuccess(
           context,
           jsonResponse[AppConstants.apiMessage],
         );
+      }
+      if (context.mounted) {
+        await loadLatestAppointments(context);
       }
     } else {
       AppMessage.error(jsonResponse[AppConstants.apiMessage]);
@@ -120,6 +118,23 @@ class AddNewAppointmentProvider extends ChangeNotifier {
         context: context,
         body: AppointmentSuccessDialogue(successMessage: message),
       );
+    }
+  }
+
+  Future<void> loadLatestAppointments(BuildContext context) async {
+    try {
+      // 🔹 Refresh AppointmentProvider data
+      final appointmentProvider = Provider.of<AppointmentProvider>(
+        context,
+        listen: false,
+      );
+      await appointmentProvider.getAllAppointmentsApi(
+        context: context,
+        page: 1,
+      );
+    } catch (e) {
+      debugPrint('loadLatestAppointments EXCEPTION ------- $e');
+      return;
     }
   }
 

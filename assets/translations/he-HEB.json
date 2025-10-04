@@ -155,5 +155,6 @@
   "log_water_intake": "Log Water Intake",
   "steps_overview": "Steps Overview",
   "log_steps": "Log Steps",
-  "add_meeting_notes": "Add Notes"
+  "add_meeting_notes": "Add Notes",
+  "no_information_found": "No Information Found"
 }

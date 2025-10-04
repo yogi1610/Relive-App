@@ -49,7 +49,7 @@ class _AddNewAppointmentScreenState extends State<AddNewAppointmentScreen> {
                               Flexible(
                                 child: AppText(
                                   (provider.selectedDate?.isNotEmpty ?? false)
-                                      ? AppDateFormat.formatToMMDDYY(
+                                      ? AppDateOrTimeFormat.formatToMMDDYY(
                                           provider.selectedDate,
                                         )
                                       : 'mm/dd/yyyy',
