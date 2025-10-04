@@ -27,4 +27,5 @@ class ApiUrls {
   static const getAllBlogs = '${baseUrl}get-all-blogs';
   static const createOrUpdateAppointment = '${baseUrl}create-or-update-appointment';
   static const getDailyAppointments = '${baseUrl}get-daily-appointments';
+  static const deleteAppointment = '${baseUrl}delete-appointment';
 }

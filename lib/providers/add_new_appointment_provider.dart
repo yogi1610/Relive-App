@@ -5,6 +5,7 @@ import '../utils/app_files_imports.dart';
 class AddNewAppointmentProvider extends ChangeNotifier {
   /// =========== for selection of practitioner ===========
 
+  TextEditingController notesController = TextEditingController();
   String? _selectedDate;
 
   String? get selectedDate => _selectedDate;
@@ -87,6 +88,9 @@ class AddNewAppointmentProvider extends ChangeNotifier {
         await AppStorageManager.readData(AppKeys.doctorId) ?? '';
     body[ApiKeys.appointmentDate] = _selectedDate ?? '';
     body[ApiKeys.startTime] = _selectedTime ?? '';
+    if (notesController.text.isNotEmpty) {
+      body[ApiKeys.notes] = notesController.text;
+    }
     body[ApiKeys.appointmentType] = finalAppointmentType(
       selectedAppointmentType,
     );
@@ -122,6 +126,7 @@ class AddNewAppointmentProvider extends ChangeNotifier {
   clearData() {
     _selectedTime = null;
     _selectedDate = null;
+    notesController.clear();
     notifyListeners();
   }
 

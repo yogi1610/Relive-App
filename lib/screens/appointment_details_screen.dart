@@ -12,6 +12,7 @@ class AppointmentDetailsScreen extends StatefulWidget {
 class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppointmentProvider>(context);
     return AppScaffold(
       appBarTitle: AppString.appointmentDetails,
       body: SingleChildScrollView(
@@ -26,12 +27,10 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
                 spacing: 15,
                 children: [
                   AppGestures(
-                    onTap: () {
-                      ShowPopUp.dialogueBox(
-                        context: context,
-                        body: DeleteAppointmentDialogue(),
-                      );
-                    },
+                    onTap: () => provider.onTapAppointmentDelete(
+                      context: context,
+                      appointmentId: '',
+                    ),
                     child: SvgPicture.asset('assets/images/svg/ic_delete.svg'),
                   ),
                   AppGestures(
@@ -119,18 +118,13 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
   }
 }
 
-class DeleteAppointmentDialogue extends StatefulWidget {
+class DeleteAppointmentDialogue extends StatelessWidget {
   const DeleteAppointmentDialogue({super.key});
 
   @override
-  State<DeleteAppointmentDialogue> createState() =>
-      _DeleteAppointmentDialogueState();
-}
-
-class _DeleteAppointmentDialogueState extends State<DeleteAppointmentDialogue> {
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -139,9 +133,7 @@ class _DeleteAppointmentDialogueState extends State<DeleteAppointmentDialogue> {
           Align(
             alignment: Alignment.topLeft,
             child: AppGestures(
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: () => Navigator.of(context).pop(false),
               child: AppImage(imagePath: 'assets/images/svg/ic_close_icon.svg'),
             ),
           ),
@@ -162,9 +154,7 @@ class _DeleteAppointmentDialogueState extends State<DeleteAppointmentDialogue> {
                 Expanded(
                   child: AppButton(
                     btnHeight: 50.h,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.of(context).pop(false),
                     borderColor: theme.primary,
                     buttonColor: theme.surface,
                     name: AppString.cancel,
@@ -173,9 +163,7 @@ class _DeleteAppointmentDialogueState extends State<DeleteAppointmentDialogue> {
                 ),
                 Expanded(
                   child: AppButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.of(context).pop(true),
                     name: AppString.save,
                     buttonColor: theme.primary.withValues(alpha: 0.2),
                     textStyle: TextStyle(

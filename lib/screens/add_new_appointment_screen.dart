@@ -18,6 +18,7 @@ class _AddNewAppointmentScreenState extends State<AddNewAppointmentScreen> {
 
     return AppScaffold(
       appBarTitle: AppString.addNewAppointment.tr(),
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: [
           Expanded(
@@ -160,7 +161,7 @@ class _AddNewAppointmentScreenState extends State<AddNewAppointmentScreen> {
                       ),
                       if (provider.isAppointmentTypeDropdownOpen)
                         Container(
-                          margin: EdgeInsets.only(top: 8, bottom: 15),
+                          margin: EdgeInsets.only(top: 8),
                           padding: EdgeInsets.all(10),
                           constraints: BoxConstraints(maxHeight: 135.h),
                           decoration: BoxDecoration(
@@ -209,6 +210,27 @@ class _AddNewAppointmentScreenState extends State<AddNewAppointmentScreen> {
                           ),
                         ),
                     ],
+                  ),
+                  _divider(),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: AppText(
+                      AppString.addMeetingNotes,
+                      style: TextStyle(fontSize: 16).poppinsMedium,
+                    ),
+                  ),
+                  TextFormField(
+                    textAlign: TextAlign.right,
+                    maxLines: null,
+                    minLines: 3,
+                    controller: provider.notesController,
+                    decoration: InputDecoration().defaultTextField(
+                      hintText: AppString.typeHere,
+                      contentPadding: EdgeInsets.all(7),
+                      borderRadius: 10,
+                      context: context,
+                      borderColor: theme.outlineVariant,
+                    ),
                   ),
                 ],
               ),
